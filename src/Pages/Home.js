@@ -1,44 +1,60 @@
-import React from 'react';
+import React,{useState,useRef,useCallback} from 'react';
 import Navbar from '../Components/Navbar';
 import Card from './../Components/Card';
 import { useInp } from '../InputContext';
-import axios from 'axios';
+import useBookSearch from './useBookSearch';
+// import axios from 'axios';
 
 function Home() {
-  const [bookData,setBookData]=React.useState([])
+  const [pageNumber, setPageNumber] = useState(0)
+  // const [bookData,setBookData]=React.useState([])
   const search=useInp();
 
-  React.useEffect(()=>{
-    const getData=async ()=>{
-      axios.get(`https://www.googleapis.com/books/v1/volumes?q=${search===''?'lord of the rings':search}&maxResults=20&filter=paid-ebooks`).then(
-        res => {setBookData([...res.data.items])}
-      ).catch(
-        err=>console.log(err)
-      )
-    }
-    getData();
-  },[search]);
-  console.log(bookData);
+  const {
+    books,
+    hasMore,
+    loading,
+  } = useBookSearch(search, pageNumber)
+
+  const observer = useRef()
+  const lastBookElementRef = useCallback(node => {
+    if (loading) return
+    if (observer.current) observer.current.disconnect()
+    observer.current = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting && hasMore) {
+        setPageNumber(prevPageNumber => prevPageNumber +40 )
+      }
+    })
+    if (node) observer.current.observe(node)
+  }, [loading, hasMore])
+  // console.log(loading)
+  // console.log(hasMore)
+  // console.log(books);
   return (
     <>
         <Navbar />
         <div className='hero'>
           <div className='cardcontainer'>
             {
-              bookData.map((item)=>{
-                if (item.volumeInfo.authors === undefined || item.volumeInfo.imageLinks && item.volumeInfo.imageLinks.smallThumbnail=== undefined){
-                  return null;
+              books.map((item,index)=>{
+                if (books.length === index + 1){
+                  return (
+                    <div ref={lastBookElementRef} key={item.etag}>
+                      <Card bookData={item} />
+                    </div>
+                  )
                 }
                 return (
-                <Card 
-                  key={item.id} 
-                  btitle={item.volumeInfo.title} 
-                  bcover={item.volumeInfo.imageLinks && item.volumeInfo.imageLinks.smallThumbnail} 
-                  bauthors={item.volumeInfo.authors.join(',')}
-                />
+                <div key={item.etag}>
+                  <Card bookData={item} />
+                </div>
                 )
               })
             }
+          </div>
+          <div className='loader-container'>{loading && (
+            <span className="loader"></span>
+          )}
           </div>
         </div>
     </>
