@@ -149,6 +149,7 @@ export default function Navbar() {
           >
             BOOKISM
           </Typography>
+          <Box sx={{ flexGrow: 1 }} />
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
