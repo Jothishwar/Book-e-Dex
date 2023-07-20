@@ -1,14 +1,13 @@
-import React from 'react'
-import sampleImage from './../images/book.jpg';
+import React from 'react';
 import './card.css';
 
-function Card() {
+function Card({btitle,bcover,bauthors}) {
   return (
     <div className='card'>
-        <img src={sampleImage} alt='harry potter' className='coverimg'></img>
+        <img src={bcover} alt='harry potter' className='coverimg'></img>
         <div className='cardbody'>
-            <h3>Harry Potter</h3>
-            <p>jk rowling</p>
+            <h3>{btitle}</h3>
+            <p>{bauthors}</p>
         </div>
     </div>
   )

@@ -11,17 +11,27 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
 }
 .coverimg{
     height: 200px;
     width: auto;
-    /* object-fit: contain; */
     border-radius: 15px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 h3{
     margin: 5px 5px 0 5px;
+    text-overflow: clip;
+    white-space: nowrap;      /* Prevents text from wrapping to the next line */
+    overflow: hidden;         /* Hides any overflowing content */
+    text-overflow: ellipsis;
+    width: 200px;
 }
 p{
     margin: 0 0 5px 0;
     color: grey;
+    width: 200px;
+    white-space: nowrap;      /* Prevents text from wrapping to the next line */
+    overflow: hidden;         /* Hides any overflowing content */
+    text-overflow: ellipsis;
 }

@@ -14,6 +14,8 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+// import UserInputContext,{ useUserInputContext } from '../UserInputContext';
+import { useInp, useUpdateInp } from '../InputContext';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -60,6 +62,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function Navbar() {
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const search=useInp();
+  const handleChange=useUpdateInp();
+
 
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -85,6 +90,7 @@ export default function Navbar() {
     console.log("Cart icon is clicked")
     handleMobileMenuClose();
   }
+
   const menuId = 'primary-search-account-menu';
 
   const mobileMenuId = 'primary-search-account-menu-mobile';
@@ -147,7 +153,7 @@ export default function Navbar() {
             component="div"
             sx={{ display: { xs: 'none', sm: 'block' } }}
           >
-            BOOKISM
+            Book-e-Dex
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
           <Search>
@@ -157,6 +163,8 @@ export default function Navbar() {
             <StyledInputBase
               placeholder="Search Your Books here..."
               inputProps={{ 'aria-label': 'search' }}
+              value={search}
+              onChange={handleChange}
             />
           </Search>
           <Box sx={{ flexGrow: 1 }} />
