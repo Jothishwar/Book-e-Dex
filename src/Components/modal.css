@@ -27,3 +27,35 @@
     max-width: 500px;
     overflow: auto;
 }
+
+@media(max-width:768px){
+    div.MuiBox-root.css-1k6mj0u{
+        width: 60%;
+    }
+}
+
+@media(max-width:425px){
+    div.MuiBox-root.css-1k6mj0u{
+        width: 60%;
+    }
+    .modal-header{
+        flex-direction: column;
+    }
+    .modal-header-right{
+        max-width: 220px;
+    }
+    .modalimage{
+        height: 150px;
+        width: auto;
+        object-fit: contain;
+    }
+    .modal-header-right span{
+        width: 40%;
+    }
+    .modal-header-right h3{
+        width: 30%;
+    }
+    .modal-header-right button{
+        width: 70%;
+    }
+}

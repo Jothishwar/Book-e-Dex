@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import PropTypes from 'prop-types';
 import { Box, styled } from '@mui/system';
 import Modal from '@mui/base/Modal';
@@ -6,7 +6,6 @@ import Fade from '@mui/material/Fade';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Button from '@mui/material/Button';
 import {CartContext} from '../CartContext';
-import { duration } from '@mui/material';
 import './modal.css';
 
 
@@ -21,25 +20,6 @@ const Backdrop = React.forwardRef((props, ref) => {
 
 Backdrop.propTypes = {
   open: PropTypes.bool,
-};
-
-const blue = {
-  200: '#99CCF3',
-  400: '#3399FF',
-  500: '#007FFF',
-};
-
-const grey = {
-  50: '#f6f8fa',
-  100: '#eaeef2',
-  200: '#d0d7de',
-  300: '#afb8c1',
-  400: '#8c959f',
-  500: '#6e7781',
-  600: '#57606a',
-  700: '#424a53',
-  800: '#32383f',
-  900: '#24292f',
 };
 
 const StyledModal = styled(Modal)`
@@ -75,12 +55,19 @@ const style = (theme) => ({
 
 export default function TransitionsModal({open,handleClose,book}) {
     // console.log(open)
+    const [status,setStatus]=useState(false)
     let thumbnail=book.volumeInfo.imageLinks && book.volumeInfo.imageLinks.smallThumbnail;
     let title=book.volumeInfo.title
     let author=book.volumeInfo.authors
     let desc=book.volumeInfo.description
     let amount=book.saleInfo.listPrice && book.saleInfo.listPrice.amount
     const {addToCart}=useContext(CartContext)
+
+    const decidetext = () => {
+      if(status===true)
+        return 'Added to Cart'
+      else return 'Add to Cart'
+    }
 
     return (
       <div>
@@ -95,13 +82,17 @@ export default function TransitionsModal({open,handleClose,book}) {
           <Fade in={open}>
             <Box sx={style}>
               <div className='modal-header'>
-                <img src={thumbnail} alt={title}></img>
+                <img src={thumbnail} alt={title} className='modalimage'></img>
                 <div className='modal-header-right'>
                   <h2 id="transition-modal-title">{title}</h2>
                   <span>{author}</span>
                   <h3 className='amount'>₹ {amount}</h3>
-                  <Button variant="contained" color="success" onClick={addToCart}>
-                    Add to Cart &nbsp;
+                  <Button variant="contained" color="success" 
+                    onClick={()=> {
+                      addToCart()
+                      setStatus(true)
+                    }}>
+                    {decidetext()} &nbsp;
                     <ShoppingCartIcon />
                   </Button>
                 </div>

@@ -65,7 +65,6 @@ export default function Navbar() {
   const search=useInp();
   const handleChange=useUpdateInp();
   const {cart} = React.useContext(CartContext)
-  console.log(search)
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   const handleMobileMenuClose = () => {
@@ -161,7 +160,7 @@ export default function Navbar() {
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
-              placeholder="Search Your Books here..."
+              placeholder="Search by Books,Authors,publishers..."
               inputProps={{ 'aria-label': 'search' }}
               value={search}
               onChange={handleChange}
