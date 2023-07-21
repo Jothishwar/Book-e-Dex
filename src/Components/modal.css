@@ -1,0 +1,29 @@
+.modal-header{
+    display: flex;
+    justify-content: flex-start;
+}
+.modal-header-right{
+    display: flex;
+    flex-direction: column;
+    width: max-content;
+}
+
+.modal-header-right h2{
+    margin: 5px 5px 0px 10px;
+}
+
+.modal-header-right span{
+    margin: 0px 5px 5px 10px;
+    color: gray;
+}
+.modal-header-right h3{
+    margin: 5px 5px 5px 10px;
+}
+.modal-header-right button{
+    margin: 5px 5px 5px 10px;
+}
+.modal-content p{
+    max-height: 300px;
+    max-width: 500px;
+    overflow: auto;
+}

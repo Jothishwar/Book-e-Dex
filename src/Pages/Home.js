@@ -27,9 +27,7 @@ function Home() {
     })
     if (node) observer.current.observe(node)
   }, [loading, hasMore])
-  // console.log(loading)
-  // console.log(hasMore)
-  // console.log(books);
+  
   return (
     <>
         <Navbar />

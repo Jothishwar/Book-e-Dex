@@ -14,8 +14,8 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-// import UserInputContext,{ useUserInputContext } from '../UserInputContext';
 import { useInp, useUpdateInp } from '../InputContext';
+import {CartContext} from '../CartContext';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -64,8 +64,8 @@ export default function Navbar() {
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const search=useInp();
   const handleChange=useUpdateInp();
-
-
+  const {cart} = React.useContext(CartContext)
+  console.log(search)
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   const handleMobileMenuClose = () => {
@@ -112,7 +112,7 @@ export default function Navbar() {
     >
       <MenuItem onClick={handleCartClick}>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={3} color="error">
+          <Badge badgeContent={cart} color="error">
             <ShoppingCartIcon />
           </Badge>
         </IconButton>
@@ -175,7 +175,7 @@ export default function Navbar() {
               color="inherit"
               onClick={handleCartClick}
             >
-              <Badge badgeContent={2} color="error">
+              <Badge badgeContent={cart} color="error">
                 <ShoppingCartIcon />
               </Badge>
             </IconButton>
