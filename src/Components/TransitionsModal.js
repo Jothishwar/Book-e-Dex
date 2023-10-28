@@ -1,11 +1,11 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types';
 import { Box, styled } from '@mui/system';
 import Modal from '@mui/base/Modal';
 import Fade from '@mui/material/Fade';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Button from '@mui/material/Button';
-import {CartContext} from '../CartContext';
+import {useUpdateCart} from '../CartContext';
 import './modal.css';
 
 
@@ -61,7 +61,8 @@ export default function TransitionsModal({open,handleClose,book}) {
     let author=book.volumeInfo.authors
     let desc=book.volumeInfo.description
     let amount=book.saleInfo.listPrice && book.saleInfo.listPrice.amount
-    const {addToCart}=useContext(CartContext)
+    
+    const addToCart=useUpdateCart()
 
     const decidetext = () => {
       if(status===true)
@@ -89,7 +90,7 @@ export default function TransitionsModal({open,handleClose,book}) {
                   <h3 className='amount'>₹ {amount}</h3>
                   <Button variant="contained" color="success" 
                     onClick={()=> {
-                      addToCart()
+                      addToCart(book)
                       setStatus(true)
                     }}>
                     {decidetext()} &nbsp;

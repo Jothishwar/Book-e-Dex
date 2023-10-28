@@ -15,7 +15,8 @@ import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useInp, useUpdateInp } from '../InputContext';
-import {CartContext} from '../CartContext';
+import {useCart} from '../CartContext';
+import { useNavigate } from "react-router-dom";
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -64,8 +65,9 @@ export default function Navbar() {
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const search=useInp();
   const handleChange=useUpdateInp();
-  const {cart} = React.useContext(CartContext)
+  const cart = useCart()
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const navigate = useNavigate();
 
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
@@ -86,12 +88,13 @@ export default function Navbar() {
   }
 
   const handleCartClick = () => {
-    console.log("Cart icon is clicked")
+    // console.log("Cart icon is clicked");
+    // console.log(cart);
+    navigate("/cart")
     handleMobileMenuClose();
   }
-
+  
   const menuId = 'primary-search-account-menu';
-
   const mobileMenuId = 'primary-search-account-menu-mobile';
   const renderMobileMenu = (
     <Menu
@@ -110,8 +113,8 @@ export default function Navbar() {
       onClose={handleMobileMenuClose}
     >
       <MenuItem onClick={handleCartClick}>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={cart} color="error">
+        <IconButton size="large" aria-label="show items in cart" color="inherit">
+          <Badge badgeContent={Object.keys(cart).length===0? '0' : Object.keys(cart).length} color="error">
             <ShoppingCartIcon />
           </Badge>
         </IconButton>
@@ -174,7 +177,7 @@ export default function Navbar() {
               color="inherit"
               onClick={handleCartClick}
             >
-              <Badge badgeContent={cart} color="error">
+              <Badge badgeContent={Object.keys(cart).length===0? '0' : Object.keys(cart).length} color="error">
                 <ShoppingCartIcon />
               </Badge>
             </IconButton>

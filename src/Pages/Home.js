@@ -3,11 +3,10 @@ import Navbar from '../Components/Navbar';
 import Card from './../Components/Card';
 import { useInp } from '../InputContext';
 import useBookSearch from './useBookSearch';
-// import axios from 'axios';
 
 function Home() {
   const [pageNumber, setPageNumber] = useState(0)
-  // const [bookData,setBookData]=React.useState([])
+
   const search=useInp();
 
   const {
