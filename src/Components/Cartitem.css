@@ -1,0 +1,20 @@
+.cardcontent {
+  padding: 0px 16px!important;
+}
+.cardcontent h4 {
+  margin: 0px;
+}
+
+.bookText {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis; /* Display an ellipsis (...) for truncated text */
+  -webkit-line-clamp: 2;
+}
+.cartitemcard{
+  margin: 15px 5px;
+}
+.saveforlater,.del{
+    font-size: 1rem!important;
+}

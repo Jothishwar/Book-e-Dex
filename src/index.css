@@ -150,6 +150,9 @@ body {
   width: 30%;
   padding: 10px;
 }
+.proceedbtn{
+  margin-top: 10px !important;
+}
 .cart_total ul{
   padding: 0px;
 }
@@ -166,4 +169,23 @@ body {
 }
 .cartitem span{
   padding: 10px;
+}
+.emptyCart_container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.emptyCart{
+  width:450px;
+  text-align:center;
+}
+
+@media(max-width:426px){
+  .cart_body{
+    flex-direction: column;
+  }
+  .emptyCart{
+    width: fit-content;
+  }
 }

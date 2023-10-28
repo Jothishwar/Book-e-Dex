@@ -1,14 +1,14 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Button from '@mui/material/Button';
 import { useCart } from "../CartContext";
 import CartItem from "../Components/CartItem";
 import Navbar from "../Components/Navbar";
+import emptyCart from '../assets/empty_cart.svg';
 
 function Cart() {
   const cartItems = useCart();
-  console.log(cartItems);
+  // console.log(cartItems);
   const totalSum = Object.values(cartItems).reduce(
     (acc, item) => acc + item.saleInfo.listPrice.amount,
     0
@@ -20,9 +20,15 @@ function Cart() {
       <div className="cart_body">
         <Card className="cart_container">
           <h3>Shopping Cart</h3>
-          <CartItem />
-          <CartItem />
-          <CartItem />
+          {totalSum==='0.00' && (
+            <div className='emptyCart_container'>
+              <img src={emptyCart} alt='empty cart' className='emptyCart'/>
+              <h4 className='empty-text'>Your Cart is Empty</h4>
+            </div>
+          )}
+          {Object.keys(cartItems).map((book)=>(
+            <CartItem bookData={cartItems[book]} id={book} key={book}/>
+          ))}
         </Card>
         <Card  className="cart_total">
           <div>
@@ -47,7 +53,7 @@ function Cart() {
                 <b>{parseFloat(totalSum)}</b>
               </span>
             </div>
-            <Button variant="contained" color="success">
+            <Button variant="contained" color="success" className='proceedbtn'>
                 Proceed to Buy
             </Button>
           </div>

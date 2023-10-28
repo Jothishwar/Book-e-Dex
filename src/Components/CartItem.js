@@ -7,43 +7,54 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import './Cartitem.css';
+import {useCart,useNewCart} from '../CartContext';
 
-export default function CartItem() {
+export default function CartItem({bookData,id}) {
+  const cartItems=useCart()
+  const updateCart=useNewCart()
+
+  const handleDelete=(e)=>{
+    delete cartItems[e.target.value]
+    updateCart(cartItems)
+    // console.log(cartItems,newval)
+  }
 
   return (
-    <Card sx={{ display: "flex" }}>
+    <Card sx={{ display: "flex" }} className="cartitemcard">
       <CardMedia
         component="img"
-        sx={{ width: 151 }}
-        image="http://books.google.com/books/content?id=jNjKrXRP0G8C&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"
+        sx={{ height: 150,width:'auto' }}
+        image={bookData['volumeInfo']['imageLinks']['smallThumbnail']}
         alt="Live from space album cover"
       />
       <Box sx={{ display: "flex", flexDirection:"column" }}>
-        <CardContent sx={{ flex: "1 1 auto" }}>
-          <Typography component="div" variant="h5">
-            {"Picturing Tolkien"}
-          </Typography>
+        <CardContent sx={{ flex: "1 1 auto" }} className="cardcontent">
+          <h4>
+            {bookData['volumeInfo']['title']}
+          </h4>
           <Typography
             variant="subtitle1"
             color="text.secondary"
             component="div"
           >
-            {"Rs.500"}
+            ₹ {bookData['saleInfo']['listPrice']['amount']}
           </Typography>
           <Typography
-            variant="subtitle1"
+            variant="subtitle2"
             color="text.secondary"
             component="div"
+            className="bookText"
           >
-            {"Each of the sixteen essays includes extensive notes and a separate bibliography. Instructors considering this book for use in a course may request an examination copy here."}
+            {bookData['volumeInfo']['description']}
           </Typography>
         </CardContent>
-        <Box sx={{ display: "flex", alignItems: "center", pl: 1, pb: 1 }}>
-          <IconButton aria-label="previous">
-            <FavoriteIcon /> Save For later
+        <Box sx={{ display: "flex", alignItems: "center", pl: 1, pb: 1 }} className='action-area' >
+          <IconButton aria-label="save for later" className="saveforlater">
+            <FavoriteIcon fontSize="small" /> Save For later
           </IconButton>
-          <IconButton aria-label="delete">
-            <DeleteIcon /> Delete
+          <IconButton aria-label="delete" value={id} className="del" onClick={handleDelete} >
+            <DeleteIcon fontSize="small" /> Delete
           </IconButton>
         </Box>
       </Box>
