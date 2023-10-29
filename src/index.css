@@ -180,12 +180,29 @@ body {
   width:450px;
   text-align:center;
 }
-
+.logo{
+  cursor: pointer;
+}
+.page_container_404{
+  width: 99vw;
+  height: 95vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.page_container_404 img{
+  width: 50%;
+}
 @media(max-width:426px){
   .cart_body{
     flex-direction: column;
   }
   .emptyCart{
     width: fit-content;
+  }
+  .cart_container,.cart_total{
+    width: auto;
+    margin: 10px 5px;
   }
 }

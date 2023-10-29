@@ -93,6 +93,12 @@ export default function Navbar() {
     navigate("/cart")
     handleMobileMenuClose();
   }
+  const handleSearchBarClick = () => {
+    navigate("/")
+  }
+  const handleLogoClick = () => {
+    navigate("/")
+  }
   
   const menuId = 'primary-search-account-menu';
   const mobileMenuId = 'primary-search-account-menu-mobile';
@@ -154,6 +160,8 @@ export default function Navbar() {
             noWrap
             component="div"
             sx={{ display: { xs: 'none', sm: 'block' } }}
+            onClick={handleLogoClick}
+            className='logo'
           >
             Book-e-Dex
           </Typography>
@@ -167,6 +175,7 @@ export default function Navbar() {
               inputProps={{ 'aria-label': 'search' }}
               value={search}
               onChange={handleChange}
+              onClick={handleSearchBarClick}
             />
           </Search>
           <Box sx={{ flexGrow: 1 }} />

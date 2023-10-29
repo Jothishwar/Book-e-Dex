@@ -3,6 +3,7 @@ import Navbar from '../Components/Navbar';
 import Card from './../Components/Card';
 import { useInp } from '../InputContext';
 import useBookSearch from './useBookSearch';
+import notFoundImage from '../assets/no_books_found.svg'
 
 function Home() {
   const [pageNumber, setPageNumber] = useState(0)
@@ -26,13 +27,13 @@ function Home() {
     })
     if (node) observer.current.observe(node)
   }, [loading, hasMore])
-  
+  console.log(books.length>0)
   return (
     <>
         <Navbar />
         <div className='hero'>
           <div className='cardcontainer'>
-            {
+            {books.length>0 && 
               books.map((item,index)=>{
                 if (books.length === index + 1){
                   return (
@@ -48,6 +49,12 @@ function Home() {
                 )
               })
             }
+            {books.length===0 && !loading && (
+              <div className='emptyCart_container'>
+                <img src={notFoundImage} alt='empty cart' className='emptyCart'/>
+                <h4 className='empty-text'>No Books Found :-( </h4>
+              </div>
+            )}
           </div>
           <div className='loader-container'>{loading && (
             <span className="loader"></span>
